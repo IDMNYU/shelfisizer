@@ -9,15 +9,15 @@ void setup()
   pinMode(latchPin, OUTPUT);
   pinMode(dataPin, OUTPUT);
   pinMode(clockPin, OUTPUT);
-  pinMode(aPin, INPUT_PULLUP);
-  pinMode(bPin, INPUT_PULLUP);
-  pinMode(cPin, INPUT_PULLUP);
-  pinMode(dPin, INPUT_PULLUP);
+  pinMode(s1Pin, INPUT_PULLUP);
+  pinMode(s2Pin, INPUT_PULLUP);
+  pinMode(s3Pin, INPUT_PULLUP);
+  pinMode(s4Pin, INPUT_PULLUP);
   pinMode(tPin, INPUT);
-  pinMode(s1Pin, OUTPUT);
-  pinMode(s2Pin, OUTPUT);
-  pinMode(s3Pin, OUTPUT);
-  pinMode(s4Pin, OUTPUT);
+  pinMode(aPin, OUTPUT);
+  pinMode(bPin, OUTPUT);
+  pinMode(cPin, OUTPUT);
+  pinMode(dPin, OUTPUT);
   if (db) Serial.begin(9600); // launch serial only on debug
 }
 
@@ -27,21 +27,21 @@ void setup()
 void loop()
 {
   // read input pins:
-  boolean a = !digitalRead(aPin); // read button 1
-  boolean b = !digitalRead(bPin); // read button 2
-  boolean c = !digitalRead(cPin); // read button 3
-  boolean d = !digitalRead(dPin); // read button 4
+  boolean s1 = !digitalRead(s1Pin); // read button 1
+  boolean s2 = !digitalRead(s2Pin); // read button 2
+  boolean s3 = !digitalRead(s3Pin); // read button 3
+  boolean s4 = !digitalRead(s4Pin); // read button 4
   int f = analogRead(tPin); // read the trigger input (ANALOG)
   if (db) Serial.println(f);
   boolean t = f > aThresh; // is the trigger voltage above the threshold
   //boolean t = digitalRead(tPin);
 
-  if (db) debug(a, b, c, d, t); // debug
+  if (db) debug(s1, s2, s3, s4, t); // debug
 
   // buttons:
 
-  // A: CHANGE "VIEW"
-  if (a == 1 & a_o == 0)
+  // S1: CHANGE "VIEW"
+  if (s1 == 1 & s1_o == 0)
   {
     view = (view + 1) % (NUMVIEWS + 1);
     if (view == 5) crsr = seqstart;
@@ -49,10 +49,10 @@ void loop()
     else crsr = 0; // reset cursor
     cp = crsrtime;
   }
-  a_o = a;
+  s1_o = s1;
 
-  // B: CURSOR LEFT
-  if (b == 1 & b_o == 0)
+  // S2: CURSOR "UP"
+  if (s2 == 1 & s2_o == 0)
   {
     crsr--;
     cp = crsrtime;
@@ -61,10 +61,10 @@ void loop()
     else if (view == 5) seqstart = crsr;
     else if (view == 6) seqend = crsr;
   }
-  b_o = b;
+  s2_o = s2;
 
-  // C: CURSOR RIGHT
-  if (c == 1 & c_o == 0)
+  // S3: CURSOR "DOWN"
+  if (s3 == 1 & s3_o == 0)
   {
     crsr++;
     cp = crsrtime;
@@ -73,29 +73,29 @@ void loop()
     else if (view == 5) seqstart = crsr;
     else if (view == 6) seqend = crsr;
   }
-  c_o = c;
+  s3_o = s3;
 
-  // D: FLIP VALUE
-  if (d == 1 & d_o == 0)
+  // S4: "SELECT" VALUE
+  if (s4 == 1 & s4_o == 0)
   {
     if (view == 0) sptr = dir > 0 ? seqstart : seqend; // reset clock
-    else if (view == 1) s1[crsr] = !s1[crsr];
-    else if (view == 2) s2[crsr] = !s2[crsr];
-    else if (view == 3) s3[crsr] = !s3[crsr];
-    else if (view == 4) s4[crsr] = !s4[crsr];
+    else if (view == 1) seqA[crsr] = !seqA[crsr];
+    else if (view == 2) seqB[crsr] = !seqB[crsr];
+    else if (view == 3) seqC[crsr] = !seqC[crsr];
+    else if (view == 4) seqD[crsr] = !seqD[crsr];
     else if (view == 5) seqstart = 0; // reset
     else if (view == 6) seqend = 15; // reset
   }
-  d_o = d;
+  s4_o = s4;
 
   updateOutputPins(); // fire triggers
 
   // fire shift registers (LEDs):
   if (view == 0) shiftByte(sptr);
-  else if (view == 1) shiftArray(s1, 16);
-  else if (view == 2) shiftArray(s2, 16);
-  else if (view == 3) shiftArray(s3, 16);
-  else if (view == 4) shiftArray(s4, 16);
+  else if (view == 1) shiftArray(seqA, 16);
+  else if (view == 2) shiftArray(seqB, 16);
+  else if (view == 3) shiftArray(seqC, 16);
+  else if (view == 4) shiftArray(seqD, 16);
   else if (view == 5) shiftByte(seqstart);
   else if (view == 6) shiftByte(seqend);
 
@@ -118,10 +118,10 @@ void loop()
     //sptr = (sptr + 1) % 16; // increment sequence
 
     // pull triggers high:
-    s1p = s1[sptr] * ptime;
-    s2p = s2[sptr] * ptime;
-    s3p = s3[sptr] * ptime;
-    s4p = s4[sptr] * ptime;
+    Ap = seqA[sptr] * ptime;
+    Bp = seqB[sptr] * ptime;
+    Cp = seqC[sptr] * ptime;
+    Dp = seqD[sptr] * ptime;
   }
   t_o = t;
 

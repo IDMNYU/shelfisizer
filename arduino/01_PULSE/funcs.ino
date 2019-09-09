@@ -53,14 +53,14 @@ void shiftArray(boolean s[], int n)
 void updateOutputPins()
 {
   // update output pins
-  digitalWrite(s1Pin, s1p > 0);
-  digitalWrite(s2Pin, s2p > 0);
-  digitalWrite(s3Pin, s3p > 0);
-  digitalWrite(s4Pin, s4p > 0);
-  s1p--;
-  s2p--;
-  s3p--;
-  s4p--;
+  digitalWrite(aPin, Ap > 0);
+  digitalWrite(bPin, Bp > 0);
+  digitalWrite(cPin, Cp > 0);
+  digitalWrite(dPin, Dp > 0);
+  Ap--;
+  Bp--;
+  Cp--;
+  Dp--;
 }
 
 //

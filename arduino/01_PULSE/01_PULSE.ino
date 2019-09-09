@@ -23,16 +23,16 @@ const boolean db = false; // debug state
 const int latchPin = 12; // shift register latch
 const int clockPin = 13; // shift register clock
 const int dataPin = 11; // shift register data
-const int aPin = 2; // button input 1
-const int bPin = 3; // button input 2
-const int cPin = 4; // button input 3
-const int dPin = 5; // button input 4
+const int s1Pin = 2; // button input 1
+const int s2Pin = 3; // button input 2
+const int s3Pin = 4; // button input 3
+const int s4Pin = 5; // button input 4
 const int tPin = A0; // input pin for external pulses
 //const int tPin = 6; // input pin for external pulses
-const int s1Pin = 7; // output for sequence 1 pulses
-const int s2Pin = 8; // output for sequence 2 pulses
-const int s3Pin = 9; // output for sequence 3 pulses
-const int s4Pin = 10; // output for sequence 4 pulses
+const int aPin = 7; // output for sequence A pulses
+const int bPin = 8; // output for sequence B pulses
+const int cPin = 9; // output for sequence C pulses
+const int dPin = 10; // output for sequence D pulses
 
 const int aThresh = 512; // analog voltage threshold for pulse input
 
@@ -48,17 +48,17 @@ byte led2 = 0; // second 8 lights
 //unsigned int s2 = 0b0010001000100010;
 //unsigned int s3 = 0b1100110001000010;
 //unsigned int s4 = 0b0010001110100001;
-boolean s1[] = {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0};
-boolean s2[] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0};
-boolean s3[] = {1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0};
-boolean s4[] = {0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1};
+boolean seqA[] = {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0};
+boolean seqB[] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0};
+boolean seqC[] = {1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0};
+boolean seqD[] = {0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1};
 
 // pulse output pins
 const int ptime = 100; // pulse high time
-int s1p = 0; // pulse state for output 1
-int s2p = 0; // pulse state for output 2
-int s3p = 0; // pulse state for output 3
-int s4p = 0; // pulse state for output 4
+int Ap = 0; // pulse state for sequence A
+int Bp = 0; // pulse state for sequence B
+int Cp = 0; // pulse state for sequence C
+int Dp = 0; // pulse state for sequence D
 
 // view:
 // 0 = sequence position
@@ -68,10 +68,10 @@ int s4p = 0; // pulse state for output 4
 byte view = 0;
 byte NUMVIEWS = 6;
 // old button / trigger states:
-boolean a_o = 0;
-boolean b_o = 0;
-boolean c_o = 0;
-boolean d_o = 0;
+boolean s1_o = 0;
+boolean s2_o = 0;
+boolean s3_o = 0;
+boolean s4_o = 0;
 boolean t_o = 0;
 
 char crsr = 0; // current "cursor" for sequence editing

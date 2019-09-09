@@ -31,20 +31,20 @@ const boolean db = false;
 
 const int aThresh = 50; // analog threshold
 
-// pin outs:
-const int trigA = 2;
-const int trigB = 4;
-const int trigC = 7;
-const int trigD = 8;
-const int trigE = 12;
-const int trigF = A1;
+// pins:
+const int trigA = 2; // L1 trigger
+const int trigB = 4; // H1 trigger
+const int trigC = 7; // B1 trigger
+const int trigD = 8; // L2 trigger
+const int trigE = 12; // H2 trigger
+const int trigF = A1; // B2 trigger
 
-const int drumA = 3; // PWM
-const int drumB = 5; // PWM
-const int drumC = 6; // PWM
-const int drumD = 9; // PWM
-const int drumE = 10; // PWM
-const int drumF = 11; // PWM
+const int drumA = 3; // PWM L1 output
+const int drumB = 5; // PWM H1 output
+const int drumC = 6; // PWM B1 output
+const int drumD = 9; // PWM L2 output
+const int drumE = 10; // PWM H2 output
+const int drumF = 11; // PWM B2 output
 
 const int AnalogIn = A0;
 const int S0 = A3; // cd74hc4051 address select 0

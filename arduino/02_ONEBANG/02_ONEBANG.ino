@@ -66,12 +66,12 @@ const int upTime = 1; // number of cycles in a trigger
 
 // pins:
 const int tPin = 2; // trigger pin
-const int aPin = 3; // output for A0
-const int bPin = 4; // output for A1
-const int cPin = 5; // output for A2
-const int dPin = 6; // output for A3
-const int ePin = 7; // output for A4
-const int fPin = 8; // output for A5
+const int aPin = 3; // output for A (input is A0)
+const int bPin = 4; // output for B (input is A1)
+const int cPin = 5; // output for C (input is A2)
+const int dPin = 6; // output for D (input is A3)
+const int ePin = 7; // output for E (input is A4)
+const int fPin = 8; // output for F (input is A5)
 const int mPin = 9; // mode switch
 const int lPin1 = 10; // light 1
 const int lPin2 = 11; // light 2
