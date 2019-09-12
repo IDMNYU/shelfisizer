@@ -8,7 +8,7 @@
 //
 // assumes:
 // 2 DC inputs, 2 triggers (INPUT).
-// 4 DC outputs via 2xLF398 (OUTPUT).
+// 4 DC outputs via 8xLF398 (OUTPUT).
 // inputs and outputs are split to banana jacks for wiring.
 // requires 9V power.
 //
