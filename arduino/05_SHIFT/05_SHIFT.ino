@@ -14,10 +14,10 @@
 //
 
 const boolean db = false; // debug state
-const int tPinL = A2; // clock input L
-const int tPinR = A3; // clock input R
-const int mPinL = A4; // manual input L
-const int mPinR = A5; // manual input R
+const int tPinL = A2; // trigger input L
+const int tPinR = A3; // trigger input R
+const int mPinL = A4; // manual trigger L
+const int mPinR = A5; // manual trigger R
 const int aPin = 2; // ASR A
 const int bPin = 3; // ASR B
 const int cPin = 4; // ASR C
