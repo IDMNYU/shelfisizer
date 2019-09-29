@@ -1,6 +1,6 @@
 //
 // SHIFT
-// Shelfisizer 2019, Module 5
+// Shelfisizer 2019, Module 6
 //
 // two-channel four-stage ASR (analog shift register), using 8 sample-and-hold ICs.
 //
