@@ -303,9 +303,9 @@ void loop() {
     if ((va > vc) && (vb > vc)) at = 1;
     if ((va > vc) || (vb > vc)) bt = 1;
     if ((va > vc) != (vb > vc)) ct = 1;
-    if ((vd > vc) && (ve > vc)) dt = 1;
-    if ((vd > vc) || (ve > vc)) et = 1;
-    if ((vd > vc) != (ve > vc)) ft = 1;
+    if ((vd > vf) && (ve > vf)) dt = 1;
+    if ((vd > vf) || (ve > vf)) et = 1;
+    if ((vd > vf) != (ve > vf)) ft = 1;
   }
   else if (mode == 11) { // two-channel boolean ops around threshold with hysteresis
     if ((va > vc) || (vb > vc)) {
@@ -332,7 +332,7 @@ void loop() {
     } else {
       ch = 0;
     }
-    if ((vd > vc) && (ve > vc)) {
+    if ((vd > vf) && (ve > vf)) {
       if (dh == 0) {
         dt = 1;
         dh = 1;
@@ -340,7 +340,7 @@ void loop() {
     } else {
       dh = 0;
     }
-    if ((vd > vc) || (ve > vc)) {
+    if ((vd > vf) || (ve > vf)) {
       if (eh == 0) {
         et = 1;
         eh = 1;
@@ -348,7 +348,7 @@ void loop() {
     } else {
       eh = 0;
     }
-    if ((vd > vc) != (ve > vc)) {
+    if ((vd > vf) != (ve > vf)) {
       if (fh == 0) {
         ft = 1;
         fh = 1;
