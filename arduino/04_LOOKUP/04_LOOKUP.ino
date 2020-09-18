@@ -30,12 +30,14 @@ const int aPin = A0, bPin = A1, cPin = A2; // analog inputs (A, B, C)
 
 int mode = 0, sv0 = 0, sv1 = 0;
 float a = 0, b = 0, c = 0; // analog input values
-const float smooth_y = 0.1; // smoothing coefficient (0 is raw input, 0.99 is very smooth)
+const float smooth_y = 0.99; // smoothing coefficient (0 is raw input, 0.99 is very smooth)
 const float smooth_x = 1.0-smooth_y; // inverse smoothing coefficient
+const float d_t = 0.1; // delta threshold: amount of shift between reads to escape smoothing
+float a_i = 0, b_i = 0, c_i = 0; // raw analog inputs
 int aSelect = 0, bSelect = 0, cSelect = 0; // analog output selections
 int aPrev = -1, bPrev = -1, cPrev = -1; // previous analog output selections
 int rc = 0, rw = 0, rmin = 0, rmax = 0; // mode 3 variables
-boolean oa = 0; // hysteresis
+boolean oa = 0; // hsysteresis
 
 const int gc[16] = { B0000, B0001, B0011, B0010,
                      B0110, B0111, B0101, B0100,
@@ -80,9 +82,15 @@ void loop() {
   if (!db) sv1 = digitalRead(s1); // HSB
   mode = sv0 + (2 * sv1);
 
-  a = smooth_x*(analogRead(aPin) / (float)MAXANALOG) + smooth_y*a;
-  b = smooth_x*(analogRead(bPin) / (float)MAXANALOG) + smooth_y*b;
-  c = smooth_x*(analogRead(cPin) / (float)MAXANALOG) + smooth_y*c;
+  a_i = analogRead(aPin) / (float)MAXANALOG;
+  b_i = analogRead(bPin) / (float)MAXANALOG;
+  c_i = analogRead(cPin) / (float)MAXANALOG;
+  if(fabs(a_i-a)>d_t) a=a_i;
+  if(fabs(b_i-b)>d_t) b=b_i;
+  if(fabs(c_i-c)>d_t) c=c_i;
+  a = smooth_x*a_i + smooth_y*a;
+  b = smooth_x*b_i + smooth_y*b;
+  c = smooth_x*c_i + smooth_y*c;
 
   if (mode == 0)
   {
