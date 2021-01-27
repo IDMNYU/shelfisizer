@@ -128,7 +128,7 @@ byte scaledata[][24] = {
 };
 
 void setup(void) {
-//  Serial.begin(9600);
+  //Serial.begin(9600);
 
   pinMode(2, INPUT); // channel A sample
   pinMode(3, INPUT); // channel B sample
@@ -177,7 +177,7 @@ void loop(void) {
     if (pc > 23) o += 1;
     mpc = scaledata[scale][pc % 24]; // lookup against scale
     aout = (o * 24) + mpc - rot; // recombine
-    vout = map(aout, 0, 121, 0, 4095); // 121 steps over 5 octaves = quarter-tone resolution
+    vout = constrain(map(aout, 0, 121, 0, 4095), 0, 4095); // 121 steps over 5 octaves = quarter-tone resolution
     dac1.setVoltage(vout, false); // update dac
   }
 
@@ -192,7 +192,7 @@ void loop(void) {
       if (pc > 23) o += 1;
       mpc = scaledata[scale][pc % 24]; // lookup against scale
       aout = (o * 24) + mpc - rot; // recombine
-      vout = map(aout, 0, 121, 0, 4095); // 121 steps over 5 octaves = quarter-tone resolution
+      vout = constrain(map(aout, 0, 121, 0, 4095), 0, 4095); // 121 steps over 5 octaves = quarter-tone resolution
       dac2.setVoltage(vout, false); // update dac
     }
   }
