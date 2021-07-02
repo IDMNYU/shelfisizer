@@ -35,10 +35,18 @@ typedef struct State {
 	CommonState __commonstate;
 	Delay m_delay_7;
 	int vectorsize;
+<<<<<<< Updated upstream
 	int __exception;
 	t_sample m_switch_1;
 	t_sample m_knob_5;
 	t_sample samplerate;
+=======
+	t_sample m_knob_2;
+	t_sample m_cv_3;
+	t_sample samplerate;
+	t_sample samples_to_seconds;
+	t_sample m_cv_1;
+>>>>>>> Stashed changes
 	t_sample m_knob_4;
 	t_sample m_knob_6;
 	t_sample m_knob_3;
@@ -48,9 +56,15 @@ typedef struct State {
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
+<<<<<<< Updated upstream
 		m_switch_1 = ((int)0);
 		m_knob_2 = ((int)0);
 		m_knob_3 = ((int)0);
+=======
+		m_cv_1 = ((int)0);
+		m_knob_2 = ((int)0);
+		m_cv_3 = ((int)0);
+>>>>>>> Stashed changes
 		m_knob_4 = ((int)0);
 		m_knob_5 = ((int)0);
 		m_knob_6 = ((int)0);
@@ -73,12 +87,19 @@ typedef struct State {
 			return __exception;
 			
 		};
+<<<<<<< Updated upstream
 		t_sample mul_30 = (m_knob_4 * ((int)15000));
 		t_sample mul_27 = (m_knob_3 * ((t_sample)0.6));
+=======
+		t_sample mul_5421 = ((m_knob_2 + m_cv_3) * ((int)10));
+		samples_to_seconds = (1 / samplerate);
+		t_sample mul_5424 = ((m_knob_4 + m_cv_1) * ((int)10));
+>>>>>>> Stashed changes
 		// the main sample loop;
 		while ((__n--)) {
 			const t_sample in1 = (*(__in1++));
 			const t_sample in2 = (*(__in2++));
+<<<<<<< Updated upstream
 			t_sample out2 = in2;
 			t_sample tap_32 = m_delay_7.read_linear(mul_30);
 			t_sample out1 = (tap_32 + in1);
@@ -86,6 +107,17 @@ typedef struct State {
 			t_sample mul_29 = (in1 * mul_27);
 			m_delay_7.write((mul_28 + mul_29));
 			m_delay_7.step();
+=======
+			t_sample phasor_5422 = __m_phasor_5(mul_5421, samples_to_seconds);
+			t_sample phasor_5425 = __m_phasor_6(mul_5424, samples_to_seconds);
+			t_sample sah_5423 = __m_sah_7(phasor_5422, phasor_5425, ((t_sample)0.5));
+			t_sample mul_5418 = (sah_5423 * ((int)1000));
+			__m_cycle_8.freq(mul_5418);
+			t_sample cycle_5419 = __m_cycle_8(__sinedata);
+			t_sample cycleindex_5420 = __m_cycle_8.phase();
+			t_sample out2 = (in2 + cycle_5419);
+			t_sample out1 = (cycle_5419 + in1);
+>>>>>>> Stashed changes
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			(*(__out2++)) = out2;
@@ -94,6 +126,7 @@ typedef struct State {
 		return __exception;
 		
 	};
+<<<<<<< Updated upstream
 	inline void set_switch5(t_param _value) {
 		m_switch_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
 	};
@@ -102,6 +135,16 @@ typedef struct State {
 	};
 	inline void set_knob5(t_param _value) {
 		m_knob_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+=======
+	inline void set_cv2(t_param _value) {
+		m_cv_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_knob1(t_param _value) {
+		m_knob_2 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_cv1(t_param _value) {
+		m_cv_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+>>>>>>> Stashed changes
 	};
 	inline void set_knob1(t_param _value) {
 		m_knob_4 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
@@ -169,12 +212,19 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
+<<<<<<< Updated upstream
 		case 0: *value = self->m_knob_4; break;
 		case 1: *value = self->m_knob_5; break;
 		case 2: *value = self->m_knob_2; break;
 		case 3: *value = self->m_knob_6; break;
 		case 4: *value = self->m_knob_3; break;
 		case 5: *value = self->m_switch_1; break;
+=======
+		case 0: *value = self->m_cv_3; break;
+		case 1: *value = self->m_cv_1; break;
+		case 2: *value = self->m_knob_2; break;
+		case 3: *value = self->m_knob_4; break;
+>>>>>>> Stashed changes
 		
 		default: break;
 	}
@@ -255,13 +305,23 @@ void *create(t_param sr, long vs) {
 	self->__commonstate.numouts = gen_kernel_numouts;
 	self->__commonstate.sr = sr;
 	self->__commonstate.vs = vs;
+<<<<<<< Updated upstream
 	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(6 * sizeof(ParamInfo));
 	self->__commonstate.numparams = 6;
 	// initialize parameter 0 ("m_knob_4")
+=======
+	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(4 * sizeof(ParamInfo));
+	self->__commonstate.numparams = 4;
+	// initialize parameter 0 ("m_cv_3")
+>>>>>>> Stashed changes
 	pi = self->__commonstate.params + 0;
 	pi->name = "knob1";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+<<<<<<< Updated upstream
 	pi->defaultvalue = self->m_knob_4;
+=======
+	pi->defaultvalue = self->m_cv_3;
+>>>>>>> Stashed changes
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
@@ -271,11 +331,19 @@ void *create(t_param sr, long vs) {
 	pi->outputmax = 1;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
+<<<<<<< Updated upstream
 	// initialize parameter 1 ("m_knob_5")
+=======
+	// initialize parameter 1 ("m_cv_1")
+>>>>>>> Stashed changes
 	pi = self->__commonstate.params + 1;
 	pi->name = "knob2";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+<<<<<<< Updated upstream
 	pi->defaultvalue = self->m_knob_5;
+=======
+	pi->defaultvalue = self->m_cv_1;
+>>>>>>> Stashed changes
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
