@@ -33,42 +33,31 @@ static const int GENLIB_LOOPCOUNT_BAIL = 100000;
 // The State struct contains all the state and procedures for the gendsp kernel
 typedef struct State {
 	CommonState __commonstate;
-	Delay m_delay_7;
-	int vectorsize;
-<<<<<<< Updated upstream
+	Delay m_delay_6;
+	Delay m_delay_5;
+	SineCycle __m_cycle_10;
+	SineData __sinedata;
 	int __exception;
-	t_sample m_switch_1;
-	t_sample m_knob_5;
+	int vectorsize;
+	t_sample __m_slide_7;
+	t_sample m_knob3_manual_2;
+	t_sample m_knob5_rate_1;
+	t_sample m_knob4_depth_4;
 	t_sample samplerate;
-=======
-	t_sample m_knob_2;
-	t_sample m_cv_3;
-	t_sample samplerate;
-	t_sample samples_to_seconds;
-	t_sample m_cv_1;
->>>>>>> Stashed changes
-	t_sample m_knob_4;
-	t_sample m_knob_6;
-	t_sample m_knob_3;
-	t_sample m_knob_2;
+	t_sample m_knob6_res_3;
 	// re-initialize all member variables;
 	inline void reset(t_param __sr, int __vs) {
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
-<<<<<<< Updated upstream
-		m_switch_1 = ((int)0);
-		m_knob_2 = ((int)0);
-		m_knob_3 = ((int)0);
-=======
-		m_cv_1 = ((int)0);
-		m_knob_2 = ((int)0);
-		m_cv_3 = ((int)0);
->>>>>>> Stashed changes
-		m_knob_4 = ((int)0);
-		m_knob_5 = ((int)0);
-		m_knob_6 = ((int)0);
-		m_delay_7.reset("m_delay_7", samplerate);
+		m_knob5_rate_1 = ((int)0);
+		m_knob3_manual_2 = ((int)0);
+		m_knob6_res_3 = ((int)0);
+		m_knob4_depth_4 = ((int)0);
+		m_delay_5.reset("m_delay_5", ((int)2400));
+		m_delay_6.reset("m_delay_6", ((int)2400));
+		__m_slide_7 = 0;
+		__m_cycle_10.reset(samplerate, 0);
 		genlib_reset_complete(this);
 		
 	};
@@ -76,48 +65,44 @@ typedef struct State {
 	inline int perform(t_sample ** __ins, t_sample ** __outs, int __n) {
 		vectorsize = __n;
 		const t_sample * __in1 = __ins[0];
-		const t_sample * __in2 = __ins[1];
 		t_sample * __out1 = __outs[0];
 		t_sample * __out2 = __outs[1];
 		if (__exception) {
 			return __exception;
 			
-		} else if (( (__in1 == 0) || (__in2 == 0) || (__out1 == 0) || (__out2 == 0) )) {
+		} else if (( (__in1 == 0) || (__out1 == 0) || (__out2 == 0) )) {
 			__exception = GENLIB_ERR_NULL_BUFFER;
 			return __exception;
 			
 		};
-<<<<<<< Updated upstream
-		t_sample mul_30 = (m_knob_4 * ((int)15000));
-		t_sample mul_27 = (m_knob_3 * ((t_sample)0.6));
-=======
-		t_sample mul_5421 = ((m_knob_2 + m_cv_3) * ((int)10));
-		samples_to_seconds = (1 / samplerate);
-		t_sample mul_5424 = ((m_knob_4 + m_cv_1) * ((int)10));
->>>>>>> Stashed changes
+		t_sample mul_330 = (m_knob6_res_3 * ((t_sample)0.99));
+		t_sample mul_377 = (m_knob3_manual_2 * ((int)2400));
+		t_sample iup_8 = (1 / maximum(1, abs(((int)1000))));
+		t_sample idown_9 = (1 / maximum(1, abs(((int)1000))));
+		t_sample mul_318 = (m_knob5_rate_1 * ((int)5));
 		// the main sample loop;
 		while ((__n--)) {
 			const t_sample in1 = (*(__in1++));
-			const t_sample in2 = (*(__in2++));
-<<<<<<< Updated upstream
-			t_sample out2 = in2;
-			t_sample tap_32 = m_delay_7.read_linear(mul_30);
-			t_sample out1 = (tap_32 + in1);
-			t_sample mul_28 = (tap_32 * m_knob_5);
-			t_sample mul_29 = (in1 * mul_27);
-			m_delay_7.write((mul_28 + mul_29));
-			m_delay_7.step();
-=======
-			t_sample phasor_5422 = __m_phasor_5(mul_5421, samples_to_seconds);
-			t_sample phasor_5425 = __m_phasor_6(mul_5424, samples_to_seconds);
-			t_sample sah_5423 = __m_sah_7(phasor_5422, phasor_5425, ((t_sample)0.5));
-			t_sample mul_5418 = (sah_5423 * ((int)1000));
-			__m_cycle_8.freq(mul_5418);
-			t_sample cycle_5419 = __m_cycle_8(__sinedata);
-			t_sample cycleindex_5420 = __m_cycle_8.phase();
-			t_sample out2 = (in2 + cycle_5419);
-			t_sample out1 = (cycle_5419 + in1);
->>>>>>> Stashed changes
+			__m_slide_7 = fixdenorm((__m_slide_7 + (((mul_377 > __m_slide_7) ? iup_8 : idown_9) * (mul_377 - __m_slide_7))));
+			t_sample slide_329 = __m_slide_7;
+			__m_cycle_10.freq(mul_318);
+			t_sample cycle_319 = __m_cycle_10(__sinedata);
+			t_sample cycleindex_320 = __m_cycle_10.phase();
+			t_sample clamp_457 = ((slide_329 <= ((int)0)) ? ((int)0) : ((slide_329 >= ((int)2400)) ? ((int)2400) : slide_329));
+			t_sample mul_427 = (m_knob4_depth_4 * clamp_457);
+			t_sample mul_317 = (cycle_319 * mul_427);
+			t_sample add_321 = (slide_329 + mul_317);
+			t_sample clamp_392 = ((add_321 <= ((int)0)) ? ((int)0) : ((add_321 >= ((int)2400)) ? ((int)2400) : add_321));
+			t_sample tap_388 = m_delay_5.read_linear(clamp_392);
+			t_sample out1 = tap_388;
+			t_sample mul_333 = (tap_388 * mul_330);
+			t_sample tap_398 = m_delay_6.read_linear(clamp_392);
+			t_sample out2 = tap_398;
+			t_sample mul_326 = (tap_398 * mul_330);
+			m_delay_5.write((mul_326 + in1));
+			m_delay_6.write(mul_333);
+			m_delay_5.step();
+			m_delay_6.step();
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			(*(__out2++)) = out2;
@@ -126,34 +111,17 @@ typedef struct State {
 		return __exception;
 		
 	};
-<<<<<<< Updated upstream
-	inline void set_switch5(t_param _value) {
-		m_switch_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	inline void set_knob5_rate(t_param _value) {
+		m_knob5_rate_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
 	};
-	inline void set_knob3(t_param _value) {
-		m_knob_2 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	inline void set_knob3_manual(t_param _value) {
+		m_knob3_manual_2 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
 	};
-	inline void set_knob5(t_param _value) {
-		m_knob_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-=======
-	inline void set_cv2(t_param _value) {
-		m_cv_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	inline void set_knob6_res(t_param _value) {
+		m_knob6_res_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
 	};
-	inline void set_knob1(t_param _value) {
-		m_knob_2 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	inline void set_cv1(t_param _value) {
-		m_cv_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
->>>>>>> Stashed changes
-	};
-	inline void set_knob1(t_param _value) {
-		m_knob_4 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	inline void set_knob2(t_param _value) {
-		m_knob_5 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	inline void set_knob4(t_param _value) {
-		m_knob_6 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	inline void set_knob4_depth(t_param _value) {
+		m_knob4_depth_4 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
 	};
 	
 } State;
@@ -165,16 +133,16 @@ typedef struct State {
 
 /// Number of signal inputs and outputs
 
-int gen_kernel_numins = 2;
+int gen_kernel_numins = 1;
 int gen_kernel_numouts = 2;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
-int num_params() { return 6; }
+int num_params() { return 4; }
 
 /// Assistive lables for the signal inputs and outputs
 
-const char *gen_kernel_innames[] = { "in1", "in2" };
+const char *gen_kernel_innames[] = { "in1" };
 const char *gen_kernel_outnames[] = { "out1", "out2" };
 
 /// Invoke the signal process of a State object
@@ -196,12 +164,10 @@ void reset(CommonState *cself) {
 void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: self->set_knob1(value); break;
-		case 1: self->set_knob2(value); break;
-		case 2: self->set_knob3(value); break;
-		case 3: self->set_knob4(value); break;
-		case 4: self->set_knob5(value); break;
-		case 5: self->set_switch5(value); break;
+		case 0: self->set_knob3_manual(value); break;
+		case 1: self->set_knob4_depth(value); break;
+		case 2: self->set_knob5_rate(value); break;
+		case 3: self->set_knob6_res(value); break;
 		
 		default: break;
 	}
@@ -212,19 +178,10 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
-<<<<<<< Updated upstream
-		case 0: *value = self->m_knob_4; break;
-		case 1: *value = self->m_knob_5; break;
-		case 2: *value = self->m_knob_2; break;
-		case 3: *value = self->m_knob_6; break;
-		case 4: *value = self->m_knob_3; break;
-		case 5: *value = self->m_switch_1; break;
-=======
-		case 0: *value = self->m_cv_3; break;
-		case 1: *value = self->m_cv_1; break;
-		case 2: *value = self->m_knob_2; break;
-		case 3: *value = self->m_knob_4; break;
->>>>>>> Stashed changes
+		case 0: *value = self->m_knob3_manual_2; break;
+		case 1: *value = self->m_knob4_depth_4; break;
+		case 2: *value = self->m_knob5_rate_1; break;
+		case 3: *value = self->m_knob6_res_3; break;
 		
 		default: break;
 	}
@@ -305,23 +262,13 @@ void *create(t_param sr, long vs) {
 	self->__commonstate.numouts = gen_kernel_numouts;
 	self->__commonstate.sr = sr;
 	self->__commonstate.vs = vs;
-<<<<<<< Updated upstream
-	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(6 * sizeof(ParamInfo));
-	self->__commonstate.numparams = 6;
-	// initialize parameter 0 ("m_knob_4")
-=======
 	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(4 * sizeof(ParamInfo));
 	self->__commonstate.numparams = 4;
-	// initialize parameter 0 ("m_cv_3")
->>>>>>> Stashed changes
+	// initialize parameter 0 ("m_knob3_manual_2")
 	pi = self->__commonstate.params + 0;
-	pi->name = "knob1";
+	pi->name = "knob3_manual";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-<<<<<<< Updated upstream
-	pi->defaultvalue = self->m_knob_4;
-=======
-	pi->defaultvalue = self->m_cv_3;
->>>>>>> Stashed changes
+	pi->defaultvalue = self->m_knob3_manual_2;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
@@ -331,19 +278,11 @@ void *create(t_param sr, long vs) {
 	pi->outputmax = 1;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-<<<<<<< Updated upstream
-	// initialize parameter 1 ("m_knob_5")
-=======
-	// initialize parameter 1 ("m_cv_1")
->>>>>>> Stashed changes
+	// initialize parameter 1 ("m_knob4_depth_4")
 	pi = self->__commonstate.params + 1;
-	pi->name = "knob2";
+	pi->name = "knob4_depth";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-<<<<<<< Updated upstream
-	pi->defaultvalue = self->m_knob_5;
-=======
-	pi->defaultvalue = self->m_cv_1;
->>>>>>> Stashed changes
+	pi->defaultvalue = self->m_knob4_depth_4;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
@@ -353,11 +292,11 @@ void *create(t_param sr, long vs) {
 	pi->outputmax = 1;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 2 ("m_knob_2")
+	// initialize parameter 2 ("m_knob5_rate_1")
 	pi = self->__commonstate.params + 2;
-	pi->name = "knob3";
+	pi->name = "knob5_rate";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_knob_2;
+	pi->defaultvalue = self->m_knob5_rate_1;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
@@ -367,39 +306,11 @@ void *create(t_param sr, long vs) {
 	pi->outputmax = 1;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 3 ("m_knob_6")
+	// initialize parameter 3 ("m_knob6_res_3")
 	pi = self->__commonstate.params + 3;
-	pi->name = "knob4";
+	pi->name = "knob6_res";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_knob_6;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0;
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
-	// initialize parameter 4 ("m_knob_3")
-	pi = self->__commonstate.params + 4;
-	pi->name = "knob5";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_knob_3;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0;
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
-	// initialize parameter 5 ("m_switch_1")
-	pi = self->__commonstate.params + 5;
-	pi->name = "switch5";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_switch_1;
+	pi->defaultvalue = self->m_knob6_res_3;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
