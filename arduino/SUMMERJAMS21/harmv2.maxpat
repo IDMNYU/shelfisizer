@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 318.0, 79.0, 1150.0, 894.0 ],
+		"rect" : [ 776.0, 85.0, 867.0, 650.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -330,7 +330,7 @@
 										}
 ,
 										"classnamespace" : "box",
-										"rect" : [ 540.0, 48.0, 292.0, 165.0 ],
+										"rect" : [ 540.0, 79.0, 292.0, 165.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -367,7 +367,7 @@
 													"numinlets" : 3,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 14.0, 85.0, 54.0, 20.0 ],
+													"patching_rect" : [ 14.0, 85.0, 54.0, 21.0 ],
 													"text" : "clip 0. 1."
 												}
 
@@ -381,7 +381,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 14.0, 47.0, 265.0, 20.0 ],
+													"patching_rect" : [ 14.0, 47.0, 265.0, 21.0 ],
 													"text" : "expr (1.1 * (sin(($f1/1024.)*(2. * 3.1415926))) - .1)"
 												}
 
