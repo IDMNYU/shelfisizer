@@ -5,7 +5,7 @@ EQ shit
 	IR Modeling
 
 Dynamics
-	Compressor
+	• Compressor
 	Gate
 	Limiter
 	Expander
@@ -16,25 +16,25 @@ Dynamics
 Distortion
 	Overdrive
 	Fuzz
-	Distortion
+	• Distortion
 	Waveshapers
 
 Modulation
-	Chorus
-	Flanger
-	Phaser
+	• Chorus - add tap switches
+	• Flanger
+	• Phaser - clean up
 	Vibrato
-	Harmonizer
+	• Harmonizer
 
 Delay
 	(Faux analog) Echo
-	Digital Delay
+	• Digital Delay
 	Reverb (traditional, IR)
 	Looper
 
 
 Special FX
-	Subharmonic synthesizer ("Octave")
+	• Subharmonic synthesizer ("Octave")
 	Feedback
 	Frequency domain pitch shifting
 	Synth tracker thing
