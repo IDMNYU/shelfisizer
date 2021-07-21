@@ -18,7 +18,7 @@ Distortion
 	Fuzz
 	• Distortion
 	Waveshapers
-	Octave Fuzz ('Octavia')
+	• Octave Fuzz ('Octavia')
 
 Modulation
 	• Chorus - add tap switches
