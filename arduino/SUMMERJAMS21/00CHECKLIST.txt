@@ -22,7 +22,7 @@ Distortion
 Modulation
 	• Chorus - add tap switches
 	• Flanger
-	• Phaser - clean up
+	• Phaser / Univibe - clean up
 	Vibrato
 	• Harmonizer
 
