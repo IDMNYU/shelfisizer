@@ -1,7 +1,7 @@
 
 EQ shit
 	Equalizers
-	Wah-wah (manual, auto-wah, dynamic wah)
+	• Wah-wah (manual, auto-wah, dynamic wah)
 	IR Modeling
 
 Dynamics
@@ -9,7 +9,7 @@ Dynamics
 	Gate
 	Limiter
 	Expander
-	Tremolo
+	• Tremolo
 	Envelope follower
 	Ring modulator
 

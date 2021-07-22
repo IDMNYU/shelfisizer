@@ -1,6 +1,6 @@
-#include "DAISYTEST_LUKE_HARMONIZER.h"
+#include "DAISYTEST_LUKE_WAH.h"
 
-namespace DAISYTEST_LUKE_HARMONIZER {
+namespace DAISYTEST_LUKE_WAH {
 
 /*******************************************************************************************************************
 Cycling '74 License for Max-Generated Code for Export
@@ -33,26 +33,14 @@ static const int GENLIB_LOOPCOUNT_BAIL = 100000;
 // The State struct contains all the state and procedures for the gendsp kernel
 typedef struct State {
 	CommonState __commonstate;
-	DCBlock __m_dcblock_7;
-	Sah __m_sah_5;
 	int __exception;
 	int vectorsize;
-	t_sample m_history_1;
-	t_sample m_sw_4;
-	t_sample m_knob4_fuzz_3;
 	t_sample samplerate;
-	t_sample m_knob3_oct_2;
 	// re-initialize all member variables;
 	inline void reset(t_param __sr, int __vs) {
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
-		m_history_1 = ((int)0);
-		m_knob3_oct_2 = ((int)0);
-		m_knob4_fuzz_3 = ((int)0);
-		m_sw_4 = ((int)0);
-		__m_sah_5.reset(0);
-		__m_dcblock_7.reset();
 		genlib_reset_complete(this);
 		
 	};
@@ -60,75 +48,30 @@ typedef struct State {
 	inline int perform(t_sample ** __ins, t_sample ** __outs, int __n) {
 		vectorsize = __n;
 		const t_sample * __in1 = __ins[0];
+		const t_sample * __in2 = __ins[1];
 		t_sample * __out1 = __outs[0];
 		t_sample * __out2 = __outs[1];
-		t_sample * __out3 = __outs[2];
-		t_sample * __out4 = __outs[3];
-		t_sample * __out5 = __outs[4];
-		t_sample * __out6 = __outs[5];
 		if (__exception) {
 			return __exception;
 			
-		} else if (( (__in1 == 0) || (__out1 == 0) || (__out2 == 0) || (__out3 == 0) || (__out4 == 0) || (__out5 == 0) || (__out6 == 0) )) {
+		} else if (( (__in1 == 0) || (__in2 == 0) || (__out1 == 0) || (__out2 == 0) )) {
 			__exception = GENLIB_ERR_NULL_BUFFER;
 			return __exception;
 			
 		};
-		t_sample sub_1185 = (m_knob4_fuzz_3 - ((int)0));
-		t_sample scale_1182 = ((safepow((sub_1185 * ((t_sample)1)), ((int)1)) * ((int)4)) + ((int)1));
-		t_sample sub_1189 = (m_knob4_fuzz_3 - ((int)0));
-		t_sample scale_1186 = ((safepow((sub_1189 * ((t_sample)1)), ((int)1)) * ((int)49)) + ((int)1));
-		t_sample sqrt_1135 = sqrt(m_knob3_oct_2);
-		t_sample rsub_1137 = (((int)1) - m_knob3_oct_2);
-		t_sample sqrt_1136 = sqrt(rsub_1137);
-		int min_8 = (-1);
 		// the main sample loop;
 		while ((__n--)) {
 			const t_sample in1 = (*(__in1++));
-			t_sample out6 = ((int)0);
-			t_sample out4 = ((int)0);
-			t_sample out5 = ((int)0);
-			t_sample sah_1142 = __m_sah_5(m_history_1, m_sw_4, ((int)0));
-			t_sample gen_1144 = sah_1142;
-			t_sample rsub_1140 = (((int)1) - sah_1142);
-			t_sample history_1141_next_1143 = fixdenorm(rsub_1140);
-			t_sample out3 = gen_1144;
-			t_sample add_1147 = (gen_1144 + ((int)1));
-			t_sample choice_6 = int(add_1147);
-			t_sample gate_1145 = (((choice_6 >= 1) && (choice_6 < 2)) ? in1 : 0);
-			t_sample gate_1146 = ((choice_6 >= 2) ? in1 : 0);
-			t_sample mul_1148 = (gate_1146 * sqrt_1136);
-			t_sample abs_1133 = fabs(gate_1146);
-			t_sample dcblock_1127 = __m_dcblock_7(abs_1133);
-			t_sample mul_1134 = (dcblock_1127 * sqrt_1135);
-			t_sample add_1132 = (mul_1148 + mul_1134);
-			t_sample mul_1131 = (add_1132 * scale_1186);
-			t_sample tanh_1125 = tanh(mul_1131);
-			t_sample clamp_1126 = ((tanh_1125 <= min_8) ? min_8 : ((tanh_1125 >= ((int)1)) ? ((int)1) : tanh_1125));
-			t_sample div_1130 = safediv(clamp_1126, scale_1182);
-			t_sample out2 = (gate_1145 + div_1130);
-			t_sample out1 = (gate_1145 + div_1130);
-			m_history_1 = history_1141_next_1143;
+			const t_sample in2 = (*(__in2++));
+			t_sample out2 = ((int)0);
+			t_sample out1 = ((int)0);
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			(*(__out2++)) = out2;
-			(*(__out3++)) = out3;
-			(*(__out4++)) = out4;
-			(*(__out5++)) = out5;
-			(*(__out6++)) = out6;
 			
 		};
 		return __exception;
 		
-	};
-	inline void set_knob3_oct(t_param _value) {
-		m_knob3_oct_2 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	inline void set_knob4_fuzz(t_param _value) {
-		m_knob4_fuzz_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	inline void set_sw1(t_param _value) {
-		m_sw_4 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
 	};
 	
 } State;
@@ -140,17 +83,17 @@ typedef struct State {
 
 /// Number of signal inputs and outputs
 
-int gen_kernel_numins = 1;
-int gen_kernel_numouts = 6;
+int gen_kernel_numins = 2;
+int gen_kernel_numouts = 2;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
-int num_params() { return 3; }
+int num_params() { return 0; }
 
 /// Assistive lables for the signal inputs and outputs
 
-const char *gen_kernel_innames[] = { "in1" };
-const char *gen_kernel_outnames[] = { "out1", "out2", "led1", "led2", "led3", "led4" };
+const char *gen_kernel_innames[] = { "in1", "in2" };
+const char *gen_kernel_outnames[] = { "out1", "out2" };
 
 /// Invoke the signal process of a State object
 
@@ -171,9 +114,6 @@ void reset(CommonState *cself) {
 void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: self->set_knob3_oct(value); break;
-		case 1: self->set_knob4_fuzz(value); break;
-		case 2: self->set_sw1(value); break;
 		
 		default: break;
 	}
@@ -184,9 +124,6 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: *value = self->m_knob3_oct_2; break;
-		case 1: *value = self->m_knob4_fuzz_3; break;
-		case 2: *value = self->m_sw_4; break;
 		
 		default: break;
 	}
@@ -267,50 +204,8 @@ void *create(t_param sr, long vs) {
 	self->__commonstate.numouts = gen_kernel_numouts;
 	self->__commonstate.sr = sr;
 	self->__commonstate.vs = vs;
-	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(3 * sizeof(ParamInfo));
-	self->__commonstate.numparams = 3;
-	// initialize parameter 0 ("m_knob3_oct_2")
-	pi = self->__commonstate.params + 0;
-	pi->name = "knob3_oct";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_knob3_oct_2;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0;
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
-	// initialize parameter 1 ("m_knob4_fuzz_3")
-	pi = self->__commonstate.params + 1;
-	pi->name = "knob4_fuzz";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_knob4_fuzz_3;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0;
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
-	// initialize parameter 2 ("m_sw_4")
-	pi = self->__commonstate.params + 2;
-	pi->name = "sw1";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_sw_4;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0;
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
+	self->__commonstate.params = 0;
+	self->__commonstate.numparams = 0;
 	
 	return self;
 }
@@ -319,10 +214,9 @@ void *create(t_param sr, long vs) {
 
 void destroy(CommonState *cself) {
 	State *self = (State *)cself;
-	genlib_sysmem_freeptr(cself->params);
-		
+	
 	delete self;
 }
 
 
-} // DAISYTEST_LUKE_HARMONIZER::
+} // DAISYTEST_LUKE_WAH::

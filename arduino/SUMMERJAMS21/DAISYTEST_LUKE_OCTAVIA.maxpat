@@ -222,7 +222,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 59.0, 104.0, 1285.0, 822.0 ],
+						"rect" : [ 361.0, 284.0, 1285.0, 822.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -269,7 +269,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 678.0, 532.0, 57.0, 22.0 ],
+									"patching_rect" : [ 571.0, 460.0, 57.0, 22.0 ],
 									"text" : "clip -1. 1."
 								}
 
@@ -341,7 +341,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 590.0, 41.0, 29.5, 22.0 ],
+									"patching_rect" : [ 537.0, 224.0, 29.5, 22.0 ],
 									"text" : "*"
 								}
 
@@ -429,7 +429,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 601.5, 175.0, 618.0, 312.0 ]
+									"patching_rect" : [ 822.5, 160.0, 618.0, 312.0 ]
 								}
 
 							}
