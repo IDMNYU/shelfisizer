@@ -22,10 +22,10 @@ Distortion
 
 Modulation
 	• Chorus - add tap switches
-	• Flanger
+	• Flanger / Vibrato
 	• Phaser / Univibe - clean up
-	Vibrato
 	• Harmonizer
+	Comb array
 
 Delay
 	(Faux analog) Echo
@@ -39,6 +39,8 @@ Special FX
 	Feedback
 	Frequency domain pitch shifting
 	Synth tracker thing
+	Granular sampling
+	Frequency shifter / Ring modulator
 
 Watch this guy: https://www.youtube.com/user/jhspedals
 
