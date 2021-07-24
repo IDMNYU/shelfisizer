@@ -3,6 +3,8 @@ EQ shit
 	Equalizers
 	• Wah-wah (manual, auto-wah, dynamic wah)
 	IR Modeling
+	Talk box / formant filter
+	Vocoder
 
 Dynamics
 	• Compressor
