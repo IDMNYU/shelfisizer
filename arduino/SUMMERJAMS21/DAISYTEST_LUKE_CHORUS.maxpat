@@ -59,7 +59,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 574.25, 387.0, 105.0, 22.0 ],
-					"presentation_linecount" : 2,
 					"text" : "knob5_breadth $1"
 				}
 

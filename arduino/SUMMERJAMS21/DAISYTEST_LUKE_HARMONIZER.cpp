@@ -33,26 +33,34 @@ static const int GENLIB_LOOPCOUNT_BAIL = 100000;
 // The State struct contains all the state and procedures for the gendsp kernel
 typedef struct State {
 	CommonState __commonstate;
-	DCBlock __m_dcblock_7;
-	Sah __m_sah_5;
-	int __exception;
+	Sah __m_sah_10;
 	int vectorsize;
-	t_sample m_history_1;
-	t_sample m_sw_4;
-	t_sample m_knob4_fuzz_3;
+	int __exception;
+	t_sample m_sw_1;
+	t_sample m_knob3_threshold_6;
+	t_sample m_history_7;
+	t_sample m_d_8;
 	t_sample samplerate;
-	t_sample m_knob3_oct_2;
+	t_sample m_knob4_ratio_5;
+	t_sample m_knob2_output_3;
+	t_sample m_d_9;
+	t_sample m_knob5_xover_2;
+	t_sample m_knob1_input_4;
 	// re-initialize all member variables;
 	inline void reset(t_param __sr, int __vs) {
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
-		m_history_1 = ((int)0);
-		m_knob3_oct_2 = ((int)0);
-		m_knob4_fuzz_3 = ((int)0);
-		m_sw_4 = ((int)0);
-		__m_sah_5.reset(0);
-		__m_dcblock_7.reset();
+		m_sw_1 = ((int)0);
+		m_knob5_xover_2 = ((int)0);
+		m_knob2_output_3 = ((int)0);
+		m_knob1_input_4 = ((int)0);
+		m_knob4_ratio_5 = ((int)0);
+		m_knob3_threshold_6 = ((int)0);
+		m_history_7 = ((int)0);
+		m_d_8 = ((int)0);
+		m_d_9 = ((int)0);
+		__m_sah_10.reset(0);
 		genlib_reset_complete(this);
 		
 	};
@@ -74,41 +82,81 @@ typedef struct State {
 			return __exception;
 			
 		};
-		t_sample sub_1185 = (m_knob4_fuzz_3 - ((int)0));
-		t_sample scale_1182 = ((safepow((sub_1185 * ((t_sample)1)), ((int)1)) * ((int)4)) + ((int)1));
-		t_sample sub_1189 = (m_knob4_fuzz_3 - ((int)0));
-		t_sample scale_1186 = ((safepow((sub_1189 * ((t_sample)1)), ((int)1)) * ((int)49)) + ((int)1));
-		t_sample sqrt_1135 = sqrt(m_knob3_oct_2);
-		t_sample rsub_1137 = (((int)1) - m_knob3_oct_2);
-		t_sample sqrt_1136 = sqrt(rsub_1137);
-		int min_8 = (-1);
+		t_sample mtof_1150 = mtof(m_knob5_xover_2, ((int)440));
+		t_sample dbtoa_1182 = dbtoa(m_knob1_input_4);
+		t_sample dbtoa_1180 = dbtoa(m_knob2_output_3);
+		t_sample freq = mtof_1150;
+		t_sample f1 = sin(safediv((((t_sample)6.2831853071796) * freq), samplerate));
+		t_sample rdiv_1159 = safediv(((int)1), m_knob4_ratio_5);
+		t_sample rsub_1158 = (((int)1) - rdiv_1159);
+		t_sample rdiv_1142 = safediv(((int)1), m_knob4_ratio_5);
+		t_sample rsub_1141 = (((int)1) - rdiv_1142);
+		t_sample rdiv_1126 = safediv(((int)1), m_knob4_ratio_5);
+		t_sample rsub_1125 = (((int)1) - rdiv_1126);
 		// the main sample loop;
 		while ((__n--)) {
 			const t_sample in1 = (*(__in1++));
 			t_sample out6 = ((int)0);
 			t_sample out4 = ((int)0);
 			t_sample out5 = ((int)0);
-			t_sample sah_1142 = __m_sah_5(m_history_1, m_sw_4, ((int)0));
-			t_sample gen_1144 = sah_1142;
-			t_sample rsub_1140 = (((int)1) - sah_1142);
-			t_sample history_1141_next_1143 = fixdenorm(rsub_1140);
-			t_sample out3 = gen_1144;
-			t_sample add_1147 = (gen_1144 + ((int)1));
-			t_sample choice_6 = int(add_1147);
-			t_sample gate_1145 = (((choice_6 >= 1) && (choice_6 < 2)) ? in1 : 0);
-			t_sample gate_1146 = ((choice_6 >= 2) ? in1 : 0);
-			t_sample mul_1148 = (gate_1146 * sqrt_1136);
-			t_sample abs_1133 = fabs(gate_1146);
-			t_sample dcblock_1127 = __m_dcblock_7(abs_1133);
-			t_sample mul_1134 = (dcblock_1127 * sqrt_1135);
-			t_sample add_1132 = (mul_1148 + mul_1134);
-			t_sample mul_1131 = (add_1132 * scale_1186);
-			t_sample tanh_1125 = tanh(mul_1131);
-			t_sample clamp_1126 = ((tanh_1125 <= min_8) ? min_8 : ((tanh_1125 >= ((int)1)) ? ((int)1) : tanh_1125));
-			t_sample div_1130 = safediv(clamp_1126, scale_1182);
-			t_sample out2 = (gate_1145 + div_1130);
-			t_sample out1 = (gate_1145 + div_1130);
-			m_history_1 = history_1141_next_1143;
+			t_sample sah_1174 = __m_sah_10(m_history_7, m_sw_1, ((int)0));
+			t_sample gen_1176 = sah_1174;
+			t_sample rsub_1172 = (((int)1) - sah_1174);
+			t_sample history_1173_next_1175 = fixdenorm(rsub_1172);
+			t_sample out3 = gen_1176;
+			t_sample add_1179 = (gen_1176 + ((int)1));
+			t_sample choice_11 = int(add_1179);
+			t_sample gate_1177 = (((choice_11 >= 1) && (choice_11 < 2)) ? in1 : 0);
+			t_sample gate_1178 = ((choice_11 >= 2) ? in1 : 0);
+			t_sample mul_1183 = (gate_1178 * dbtoa_1182);
+			t_sample L = (m_d_9 + (f1 * m_d_8));
+			t_sample H = ((mul_1183 - L) - (((t_sample)0.2) * m_d_8));
+			t_sample B = ((f1 * H) + m_d_8);
+			m_d_8 = B;
+			m_d_9 = L;
+			t_sample add_1163 = (L + ((int)0));
+			t_sample abs_1164 = fabs(add_1163);
+			t_sample atodb_1162 = atodb(abs_1164);
+			int gt_1160 = (atodb_1162 > m_knob3_threshold_6);
+			t_sample sub_1161 = (m_knob3_threshold_6 - atodb_1162);
+			t_sample mul_1157 = (sub_1161 * rsub_1158);
+			t_sample dbtoa_1156 = dbtoa(mul_1157);
+			t_sample rsub_1155 = (((int)1) - dbtoa_1156);
+			t_sample mul_1154 = (rsub_1155 * (-1));
+			t_sample mul_1153 = (gt_1160 * mul_1154);
+			t_sample add_1152 = (mul_1153 + ((int)1));
+			t_sample clamp_1151 = ((add_1152 <= ((int)0)) ? ((int)0) : ((add_1152 >= ((int)1)) ? ((int)1) : add_1152));
+			t_sample mul_1165 = (L * clamp_1151);
+			t_sample add_1146 = (H + ((int)0));
+			t_sample abs_1147 = fabs(add_1146);
+			t_sample atodb_1145 = atodb(abs_1147);
+			int gt_1143 = (atodb_1145 > m_knob3_threshold_6);
+			t_sample sub_1144 = (m_knob3_threshold_6 - atodb_1145);
+			t_sample mul_1140 = (sub_1144 * rsub_1141);
+			t_sample dbtoa_1139 = dbtoa(mul_1140);
+			t_sample rsub_1138 = (((int)1) - dbtoa_1139);
+			t_sample mul_1137 = (rsub_1138 * (-1));
+			t_sample mul_1136 = (gt_1143 * mul_1137);
+			t_sample add_1135 = (mul_1136 + ((int)1));
+			t_sample clamp_1134 = ((add_1135 <= ((int)0)) ? ((int)0) : ((add_1135 >= ((int)1)) ? ((int)1) : add_1135));
+			t_sample mul_1148 = (H * clamp_1134);
+			t_sample add_1130 = (B + ((int)0));
+			t_sample abs_1131 = fabs(add_1130);
+			t_sample atodb_1129 = atodb(abs_1131);
+			int gt_1127 = (atodb_1129 > m_knob3_threshold_6);
+			t_sample sub_1128 = (m_knob3_threshold_6 - atodb_1129);
+			t_sample mul_1124 = (sub_1128 * rsub_1125);
+			t_sample dbtoa_1123 = dbtoa(mul_1124);
+			t_sample rsub_1122 = (((int)1) - dbtoa_1123);
+			t_sample mul_1121 = (rsub_1122 * (-1));
+			t_sample mul_1120 = (gt_1127 * mul_1121);
+			t_sample add_1119 = (mul_1120 + ((int)1));
+			t_sample clamp_1118 = ((add_1119 <= ((int)0)) ? ((int)0) : ((add_1119 >= ((int)1)) ? ((int)1) : add_1119));
+			t_sample mul_1132 = (B * clamp_1118);
+			t_sample mul_1181 = (((mul_1132 + mul_1148) + mul_1165) * dbtoa_1180);
+			t_sample out1 = (gate_1177 + mul_1181);
+			t_sample out2 = (gate_1177 + mul_1181);
+			m_history_7 = history_1173_next_1175;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			(*(__out2++)) = out2;
@@ -121,14 +169,23 @@ typedef struct State {
 		return __exception;
 		
 	};
-	inline void set_knob3_oct(t_param _value) {
-		m_knob3_oct_2 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	inline void set_knob4_fuzz(t_param _value) {
-		m_knob4_fuzz_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
 	inline void set_sw1(t_param _value) {
-		m_sw_4 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+		m_sw_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_knob5_xover(t_param _value) {
+		m_knob5_xover_2 = (_value < 20 ? 20 : (_value > 100 ? 100 : _value));
+	};
+	inline void set_knob2_output(t_param _value) {
+		m_knob2_output_3 = (_value < -70 ? -70 : (_value > 15 ? 15 : _value));
+	};
+	inline void set_knob1_input(t_param _value) {
+		m_knob1_input_4 = (_value < -70 ? -70 : (_value > 15 ? 15 : _value));
+	};
+	inline void set_knob4_ratio(t_param _value) {
+		m_knob4_ratio_5 = (_value < 1 ? 1 : (_value > 20 ? 20 : _value));
+	};
+	inline void set_knob3_threshold(t_param _value) {
+		m_knob3_threshold_6 = (_value < -70 ? -70 : (_value > 6 ? 6 : _value));
 	};
 	
 } State;
@@ -145,7 +202,7 @@ int gen_kernel_numouts = 6;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
-int num_params() { return 3; }
+int num_params() { return 6; }
 
 /// Assistive lables for the signal inputs and outputs
 
@@ -171,9 +228,12 @@ void reset(CommonState *cself) {
 void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: self->set_knob3_oct(value); break;
-		case 1: self->set_knob4_fuzz(value); break;
-		case 2: self->set_sw1(value); break;
+		case 0: self->set_knob1_input(value); break;
+		case 1: self->set_knob2_output(value); break;
+		case 2: self->set_knob3_threshold(value); break;
+		case 3: self->set_knob4_ratio(value); break;
+		case 4: self->set_knob5_xover(value); break;
+		case 5: self->set_sw1(value); break;
 		
 		default: break;
 	}
@@ -184,9 +244,12 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: *value = self->m_knob3_oct_2; break;
-		case 1: *value = self->m_knob4_fuzz_3; break;
-		case 2: *value = self->m_sw_4; break;
+		case 0: *value = self->m_knob1_input_4; break;
+		case 1: *value = self->m_knob2_output_3; break;
+		case 2: *value = self->m_knob3_threshold_6; break;
+		case 3: *value = self->m_knob4_ratio_5; break;
+		case 4: *value = self->m_knob5_xover_2; break;
+		case 5: *value = self->m_sw_1; break;
 		
 		default: break;
 	}
@@ -267,41 +330,83 @@ void *create(t_param sr, long vs) {
 	self->__commonstate.numouts = gen_kernel_numouts;
 	self->__commonstate.sr = sr;
 	self->__commonstate.vs = vs;
-	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(3 * sizeof(ParamInfo));
-	self->__commonstate.numparams = 3;
-	// initialize parameter 0 ("m_knob3_oct_2")
+	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(6 * sizeof(ParamInfo));
+	self->__commonstate.numparams = 6;
+	// initialize parameter 0 ("m_knob1_input_4")
 	pi = self->__commonstate.params + 0;
-	pi->name = "knob3_oct";
+	pi->name = "knob1_input";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_knob3_oct_2;
+	pi->defaultvalue = self->m_knob1_input_4;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
 	pi->inputmax = 1;
 	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
+	pi->outputmin = -70;
+	pi->outputmax = 15;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 1 ("m_knob4_fuzz_3")
+	// initialize parameter 1 ("m_knob2_output_3")
 	pi = self->__commonstate.params + 1;
-	pi->name = "knob4_fuzz";
+	pi->name = "knob2_output";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_knob4_fuzz_3;
+	pi->defaultvalue = self->m_knob2_output_3;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;
 	pi->inputmax = 1;
 	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
+	pi->outputmin = -70;
+	pi->outputmax = 15;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 2 ("m_sw_4")
+	// initialize parameter 2 ("m_knob3_threshold_6")
 	pi = self->__commonstate.params + 2;
+	pi->name = "knob3_threshold";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_knob3_threshold_6;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = -70;
+	pi->outputmax = 6;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 3 ("m_knob4_ratio_5")
+	pi = self->__commonstate.params + 3;
+	pi->name = "knob4_ratio";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_knob4_ratio_5;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 1;
+	pi->outputmax = 20;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 4 ("m_knob5_xover_2")
+	pi = self->__commonstate.params + 4;
+	pi->name = "knob5_xover";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_knob5_xover_2;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 20;
+	pi->outputmax = 100;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 5 ("m_sw_1")
+	pi = self->__commonstate.params + 5;
 	pi->name = "sw1";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_sw_4;
+	pi->defaultvalue = self->m_sw_1;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0;

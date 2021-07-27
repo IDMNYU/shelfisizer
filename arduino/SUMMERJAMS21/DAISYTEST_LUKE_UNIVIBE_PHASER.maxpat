@@ -4579,7 +4579,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 803.459960000000137, 286.0, 53.0, 20.0 ],
-									"presentation_linecount" : 6,
 									"text" : "diffusion"
 								}
 
@@ -7302,16 +7301,16 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "swtoggle.gendsp",
-				"bootpath" : "~/Documents/TEACHING/nyu/idm/soundstudio/shelfisizer/arduino/SUMMERJAMS21",
-				"patcherrelativepath" : ".",
+				"name" : "oopsy.ctrl.smooth3.gendsp",
+				"bootpath" : "~/Documents/Max 8/Packages/oopsy/code",
+				"patcherrelativepath" : "../../../../../../../Max 8/Packages/oopsy/code",
 				"type" : "gDSP",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "oopsy.ctrl.smooth3.gendsp",
-				"bootpath" : "~/Documents/Max 8/Packages/oopsy/code",
-				"patcherrelativepath" : "../../../../../../../Max 8/Packages/oopsy/code",
+				"name" : "swtoggle.gendsp",
+				"bootpath" : "~/Documents/TEACHING/nyu/idm/soundstudio/shelfisizer/arduino/SUMMERJAMS21",
+				"patcherrelativepath" : ".",
 				"type" : "gDSP",
 				"implicit" : 1
 			}
