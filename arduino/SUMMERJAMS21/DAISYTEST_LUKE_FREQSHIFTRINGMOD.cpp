@@ -154,8 +154,8 @@ typedef struct State {
 			complexRing_d_d_d_d(r, i, rm, ri, return_47, return_48);
 			t_sample expr_4 = return_47;
 			t_sample expr_5 = return_48;
-			t_sample out2 = expr_5;
 			t_sample out1 = expr_4;
+			t_sample out2 = expr_5;
 			t_sample out3 = sync;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
