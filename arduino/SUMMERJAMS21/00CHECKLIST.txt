@@ -13,7 +13,6 @@ Dynamics
 	Expander
 	• Tremolo
 	Envelope follower
-	Ring modulator
 
 Distortion
 	Overdrive
@@ -42,7 +41,7 @@ Special FX
 	Frequency domain pitch shifting
 	Synth tracker thing
 	Granular sampling
-	Frequency shifter / Ring modulator
+	• Frequency shifter / Ring modulator
 
 Watch this guy: https://www.youtube.com/user/jhspedals
 
