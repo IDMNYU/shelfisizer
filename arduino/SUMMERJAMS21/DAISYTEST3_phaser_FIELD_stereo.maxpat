@@ -40,6 +40,26 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "petal" ],
+					"bgmode" : 0,
+					"border" : 0,
+					"clickthrough" : 0,
+					"enablehscroll" : 0,
+					"enablevscroll" : 0,
+					"id" : "obj-83",
+					"lockeddragscroll" : 0,
+					"maxclass" : "bpatcher",
+					"name" : "oopsy.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"offset" : [ 0.0, 0.0 ],
+					"patching_rect" : [ 530.5, 115.0, 128.0, 128.0 ],
+					"viewvisibility" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"format" : 6,
 					"id" : "obj-17",
 					"maxclass" : "flonum",
@@ -60,26 +80,6 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 616.0, 369.0, 150.0, 100.0 ],
 					"text" : "knob1 - rate\nknob2 - width\nknob3 - Q\nknob4 - diffuesion\nknob5 - fb\nknob6 - waveform\nknob7 - gain"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "field" ],
-					"bgmode" : 0,
-					"border" : 0,
-					"clickthrough" : 0,
-					"enablehscroll" : 0,
-					"enablevscroll" : 0,
-					"id" : "obj-9",
-					"lockeddragscroll" : 0,
-					"maxclass" : "bpatcher",
-					"name" : "oopsy.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"offset" : [ 0.0, 0.0 ],
-					"patching_rect" : [ 531.0, 117.0, 128.0, 128.0 ],
-					"viewvisibility" : 1
 				}
 
 			}
@@ -1017,9 +1017,9 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-9::obj-32" : [ "live.text[2]", "FILTER", 0 ],
-			"obj-9::obj-36" : [ "live.menu[1]", "live.menu", 0 ],
-			"obj-9::obj-4" : [ "live.menu[2]", "live.menu", 0 ],
+			"obj-83::obj-32" : [ "live.text[2]", "FILTER", 0 ],
+			"obj-83::obj-36" : [ "live.menu[1]", "live.menu", 0 ],
+			"obj-83::obj-4" : [ "live.menu[2]", "live.menu", 0 ],
 			"parameterbanks" : 			{
 
 			}

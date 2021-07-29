@@ -139,7 +139,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.666666666666629, 403.0, 87.0, 22.0 ],
-					"presentation_linecount" : 2,
 					"text" : "knob5_oct2 $1"
 				}
 
@@ -165,7 +164,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 367.666666666666629, 403.0, 87.0, 22.0 ],
-					"presentation_linecount" : 2,
 					"text" : "knob4_oct1 $1"
 				}
 
@@ -567,7 +565,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 561.5, 576.0, 134.0, 20.0 ],
-									"presentation_linecount" : 2,
 									"text" : "subharmonic oscillators"
 								}
 
@@ -579,7 +576,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 603.5, 511.0, 105.0, 20.0 ],
-									"presentation_linecount" : 2,
 									"text" : "2 octaves below >"
 								}
 
@@ -602,7 +598,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 556.5, 415.0, 123.0, 20.0 ],
-									"presentation_linecount" : 3,
 									"text" : "zero crossing counter"
 								}
 
@@ -2119,14 +2114,14 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "swtoggle.gendsp",
+				"name" : "biquad.gendsp",
 				"bootpath" : "~/Documents/TEACHING/nyu/idm/soundstudio/shelfisizer/arduino/SUMMERJAMS21",
 				"patcherrelativepath" : ".",
 				"type" : "gDSP",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "biquad.gendsp",
+				"name" : "swtoggle.gendsp",
 				"bootpath" : "~/Documents/TEACHING/nyu/idm/soundstudio/shelfisizer/arduino/SUMMERJAMS21",
 				"patcherrelativepath" : ".",
 				"type" : "gDSP",

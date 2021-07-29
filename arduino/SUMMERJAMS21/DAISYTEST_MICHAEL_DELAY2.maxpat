@@ -40,6 +40,26 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "petal" ],
+					"bgmode" : 0,
+					"border" : 0,
+					"clickthrough" : 0,
+					"enablehscroll" : 0,
+					"enablevscroll" : 0,
+					"id" : "obj-83",
+					"lockeddragscroll" : 0,
+					"maxclass" : "bpatcher",
+					"name" : "oopsy.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"offset" : [ 0.0, 0.0 ],
+					"patching_rect" : [ 425.5, 281.0, 128.0, 128.0 ],
+					"viewvisibility" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-42",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -119,7 +139,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 389.0, 7.0, 63.0, 20.0 ],
-					"presentation_linecount" : 2,
 					"text" : "delay time"
 				}
 
@@ -131,7 +150,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 305.0, 7.0, 57.0, 20.0 ],
-					"presentation_linecount" : 2,
 					"text" : "feedback"
 				}
 
@@ -425,25 +443,6 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 206.0, 414.0, 45.0, 45.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgmode" : 0,
-					"border" : 0,
-					"clickthrough" : 0,
-					"enablehscroll" : 0,
-					"enablevscroll" : 0,
-					"id" : "obj-9",
-					"lockeddragscroll" : 0,
-					"maxclass" : "bpatcher",
-					"name" : "oopsy.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"offset" : [ 0.0, 0.0 ],
-					"patching_rect" : [ 451.5, 278.0, 128.0, 128.0 ],
-					"viewvisibility" : 1
 				}
 
 			}
@@ -747,7 +746,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 224.0, 11.0, 57.0, 20.0 ],
-									"presentation_linecount" : 2,
 									"text" : "feedback"
 								}
 
@@ -1329,9 +1327,9 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-9::obj-32" : [ "live.text[2]", "FILTER", 0 ],
-			"obj-9::obj-36" : [ "live.menu[1]", "live.menu", 0 ],
-			"obj-9::obj-4" : [ "live.menu[2]", "live.menu", 0 ],
+			"obj-83::obj-32" : [ "live.text[2]", "FILTER", 0 ],
+			"obj-83::obj-36" : [ "live.menu[1]", "live.menu", 0 ],
+			"obj-83::obj-4" : [ "live.menu[2]", "live.menu", 0 ],
 			"parameterbanks" : 			{
 
 			}
