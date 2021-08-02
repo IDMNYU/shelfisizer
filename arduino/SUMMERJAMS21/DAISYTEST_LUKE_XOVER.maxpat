@@ -298,7 +298,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "frequency_in_hz = in1;\t// input frequency\r\n\r\nfs = in2;\r\n\nfrequency_in_radians = PI * 2.0 * frequency_in_hz;\r\nk = frequency_in_radians / tan(PI * frequency_in_hz / fs);\nsqrt_of_two = sqrt(2.0);\ntemp = 4 * pow(frequency_in_radians,2) * pow(k, 2)  + 2 * sqrt_of_two * pow(frequency_in_radians, 3) * k + pow(k, 4) + 2 * sqrt_of_two * frequency_in_radians * pow(k, 3) + pow(frequency_in_radians, 4);\n\na0 = pow(frequency_in_radians, 4)\t/\ttemp;\t\na1 = 4 * pow(frequency_in_radians, 4)\t/\ttemp;\na2 = 6 * pow(frequency_in_radians, 4)\t/\ttemp;\na3 = a1;\na4 = a0;\n\t\n\ta0_high = pow(k,4) / temp;\n\ta1_high = -4 * pow(k,4) / temp;\n\ta2_high = 6 * pow(k,4) / temp;\n\ta3_high = a1_high;\n\ta4_high = a0_high;\n\n\tb1 = (\n\t\t4 * pow(frequency_in_radians,4)\n\t\t+ 4 * sqrt_of_two * pow(frequency_in_radians,3) * k\n\t\t- 4 * pow(k, 4)\n\t\t- 4 * sqrt_of_two * frequency_in_radians * pow(k,3)\n\t) / temp;\n\n\tb2 = (\n\t\t6 * pow(frequency_in_radians,4)\n\t\t- 8 * pow(frequency_in_radians,2) * pow(k,2)\n\t\t+ 6 * pow(k, 4)\n\t) /\ttemp;\n\n\tb3 = (\n\t\t-4 * sqrt_of_two * pow(frequency_in_radians,3) * k\n\t\t+ 4 * pow(frequency_in_radians, 4)\n\t\t+ 4 * sqrt_of_two * frequency_in_radians * pow(k,3)\n\t\t- 4 * pow(k, 4)\n\t) / temp;\n\n\tb4 = (\n\t\tpow(k,4)\n\t\t- 2 * sqrt_of_two * pow(frequency_in_radians, 3) * k\n\t\t+ pow(frequency_in_radians, 4)\n\t\t- 2 * sqrt_of_two * frequency_in_radians * pow(k,3)\n\t\t+ 4 * pow(frequency_in_radians,2) * pow(k,2)\n\t) / temp;\r\n\r\n\r\n\r\n\r\nout1 = a0;\r\nout2 = a1;\r\nout3 = a2;\r\nout4 = a3;\r\nout5 = a4;\r\nout6 = b1;\r\nout7 = b2;\r\nout8 = b3;\r\nout9 = b4;\r\nout10 = a0_high;\r\nout11 = a1_high;\r\nout12 = a2_high;\r\nout13 = a3_high;\r\nout14 = a4_high;\r\nout15 = b1;\r\nout16 = b2;\r\nout17 = b3;\r\nout18 = b4;\r\n",
+									"code" : "frequency_in_hz = in1; // input frequency\r\n\r\nfs = in2; // sampling rate\r\n\nfrequency_in_radians = PI * 2.0 * frequency_in_hz;\r\nk = frequency_in_radians / tan(PI * frequency_in_hz / fs);\nsqrt_of_two = sqrt(2.0);\ntemp = 4 * pow(frequency_in_radians,2) * pow(k, 2)  + 2 * sqrt_of_two * pow(frequency_in_radians, 3) * k + pow(k, 4) + 2 * sqrt_of_two * frequency_in_radians * pow(k, 3) + pow(frequency_in_radians, 4);\n\na0 = pow(frequency_in_radians, 4)\t/\ttemp;\t\na1 = 4 * pow(frequency_in_radians, 4)\t/\ttemp;\na2 = 6 * pow(frequency_in_radians, 4)\t/\ttemp;\na3 = a1;\na4 = a0;\n\t\na0_high = pow(k,4) / temp;\na1_high = -4 * pow(k,4) / temp;\na2_high = 6 * pow(k,4) / temp;\na3_high = a1_high;\na4_high = a0_high;\n\nb1 = (\n\t\t4 * pow(frequency_in_radians,4)\n\t\t+ 4 * sqrt_of_two * pow(frequency_in_radians,3) * k\n\t\t- 4 * pow(k, 4)\n\t\t- 4 * sqrt_of_two * frequency_in_radians * pow(k,3)\n) / temp;\n\nb2 = (\n\t\t6 * pow(frequency_in_radians,4)\n\t\t- 8 * pow(frequency_in_radians,2) * pow(k,2)\n\t\t+ 6 * pow(k, 4)\n) /\ttemp;\n\nb3 = (\n\t\t-4 * sqrt_of_two * pow(frequency_in_radians,3) * k\n\t\t+ 4 * pow(frequency_in_radians, 4)\n\t\t+ 4 * sqrt_of_two * frequency_in_radians * pow(k,3)\n\t\t- 4 * pow(k, 4)\n) / temp;\n\nb4 = (\n\t\tpow(k,4)\n\t\t- 2 * sqrt_of_two * pow(frequency_in_radians, 3) * k\n\t\t+ pow(frequency_in_radians, 4)\n\t\t- 2 * sqrt_of_two * frequency_in_radians * pow(k,3)\n\t\t+ 4 * pow(frequency_in_radians,2) * pow(k,2)\n) / temp;\r\n\r\n\r\n// coefficients!\r\nout1 = a0;\r\nout2 = a1;\r\nout3 = a2;\r\nout4 = a3;\r\nout5 = a4;\r\nout6 = b1;\r\nout7 = b2;\r\nout8 = b3;\r\nout9 = b4;\r\nout10 = a0_high;\r\nout11 = a1_high;\r\nout12 = a2_high;\r\nout13 = a3_high;\r\nout14 = a4_high;\r\nout15 = b1;\r\nout16 = b2;\r\nout17 = b3;\r\nout18 = b4;\r\n",
 									"fontface" : 0,
 									"fontname" : "Menlo Regular",
 									"fontsize" : 12.0,
@@ -977,7 +977,6 @@
 									}
 ,
 									"patching_rect" : [ 515.5, 643.0, 184.0, 22.0 ],
-									"presentation_linecount" : 2,
 									"text" : "gen @title highpass"
 								}
 
@@ -1252,7 +1251,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 791.5, 72.0, 116.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 10 @comment b4"
 												}
 
@@ -1265,7 +1263,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 698.0, 72.0, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 9 @comment b3"
 												}
 
@@ -1278,7 +1275,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 606.5, 72.0, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 8 @comment b2"
 												}
 
@@ -1291,7 +1287,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 513.5, 72.0, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 7 @comment b1"
 												}
 
@@ -1304,7 +1299,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 387.5, 204.5, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 6 @comment a4"
 												}
 
@@ -1317,7 +1311,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 360.0, 166.0, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 5 @comment a3"
 												}
 
@@ -1330,7 +1323,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 315.5, 125.0, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 4 @comment a2"
 												}
 
@@ -1343,7 +1335,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 300.0, 80.0, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 3 @comment a1"
 												}
 
@@ -1368,7 +1359,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 276.0, 39.0, 109.0, 22.0 ],
-													"presentation_linecount" : 2,
 													"text" : "in 2 @comment a0"
 												}
 
