@@ -23,14 +23,14 @@ Distortion
 
 Modulation
 	• Chorus - add tap switches
-	• Flanger / Vibrato
+	• Flanger / Vibrato - three way switch (vibrato / normal / thru-0)
 	• Phaser / Univibe - clean up
 	• Harmonizer
 	Comb array
 
 Delay
 	(Faux analog) Echo
-	• Digital Delay
+	• Digital Delay (add ducking knob & tap & reverse & looper & filter modes)
 	• Reverb (traditional, IR)
 	Looper
 
