@@ -268,7 +268,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 345.0, 139.0, 1380.0, 912.0 ],
+						"rect" : [ 345.0, 139.0, 763.0, 886.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -298,12 +298,23 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-20",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 254.75, 218.0, 92.0, 22.0 ],
+									"text" : "gen @file xover"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-10",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 816.0, 634.0, 42.0, 20.0 ],
-									"presentation_linecount" : 2,
+									"patching_rect" : [ 345.0, 255.0, 42.0, 20.0 ],
 									"text" : "high >"
 								}
 
@@ -314,7 +325,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 306.0, 634.0, 37.0, 20.0 ],
+									"patching_rect" : [ 266.0, 255.0, 37.0, 20.0 ],
 									"text" : "< low"
 								}
 
@@ -326,23 +337,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 931.25, 69.0, 32.0, 22.0 ],
+									"patching_rect" : [ 365.25, 110.0, 32.0, 22.0 ],
 									"text" : "mtof"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"code" : "// Linkwitz-Riley 4th-order crossover - Trond Lossius via Tim Place, ported from:\r\n// https://cycling74.com/tutorials/crossover-filter-design-video-tutorial\r\n\r\nHistory x1, x2, x3, x4, ly1, ly2, ly3, ly4, hy1, hy2, hy3, hy4; // memory\r\nx = in1; // input sample\r\n\r\nfreq = in2; // input frequency in hertz\r\n\nrads = PI * 2.0 * freq; // frequency in radians\r\nk = rads / tan(PI * freq / SAMPLERATE); // k coefficient\nsq2 = sqrt(2.0); // square root of two\ntemp = 4 * pow(rads,2) * pow(k, 2)  + 2 * sq2 * pow(rads, 3) * k + pow(k, 4) + 2 * sq2 * rads * pow(k, 3) + pow(rads, 4);\n\r\n// lowpass feedforward:\nla0 = pow(rads, 4) / temp;\t\nla1 = 4 * pow(rads, 4) / temp;\nla2 = 6 * pow(rads, 4) / temp;\nla3 = la1;\nla4 = la0;\n\r\n// highpass feedforward:\nha0 = pow(k,4) / temp;\nha1 = -4 * pow(k,4) / temp;\nha2 = 6 * pow(k,4) / temp;\nha3 = ha1;\nha4 = ha0;\n\r\n// feedback:\nb1 = (\n\t\t4 * pow(rads,4)\n\t\t+ 4 * sq2 * pow(rads,3) * k\n\t\t- 4 * pow(k, 4)\n\t\t- 4 * sq2 * rads * pow(k,3)\n) / temp;\n\nb2 = (\n\t\t6 * pow(rads,4)\n\t\t- 8 * pow(rads,2) * pow(k,2)\n\t\t+ 6 * pow(k, 4)\n) /\ttemp;\n\nb3 = (\n\t\t-4 * sq2 * pow(rads,3) * k\n\t\t+ 4 * pow(rads, 4)\n\t\t+ 4 * sq2 * rads * pow(k,3)\n\t\t- 4 * pow(k, 4)\n) / temp;\n\nb4 = (\n\t\tpow(k,4)\n\t\t- 2 * sq2 * pow(rads, 3) * k\n\t\t+ pow(rads, 4)\n\t\t- 2 * sq2 * rads * pow(k,3)\n\t\t+ 4 * pow(rads,2) * pow(k,2)\n) / temp;\r\n\r\n// lowpass out:\r\nly = la0*x + la1*x1 + la2*x2 + la3*x3 + la4*x4 - b1*ly1 - b2*ly2 - b3*ly3 - b4*ly4;\r\n\r\n// highpass out:\r\nhy = ha0*x + ha1*x1 + ha2*x2 + ha3*x3 + ha4*x4 - b1*hy1 - b2*hy2 - b3*hy3 - b4*hy4;\r\n\r\n// shift:\r\nly4 = ly3;\r\nly3 = ly2;\r\nly2 = ly1;\r\nly1 = ly;\r\nhy4 = hy3;\r\nhy3 = hy2;\r\nhy2 = hy1;\r\nhy1 = hy;\r\nx4 = x3;\r\nx3 = x2;\r\nx2 = x1;\r\nx1 = x;\r\n\r\n// output:\r\nout1 = ly;\r\nout2 = hy;\r\n\r\n",
-									"fontface" : 0,
-									"fontname" : "Menlo Regular",
-									"fontsize" : 12.0,
-									"id" : "obj-38",
-									"maxclass" : "codebox",
-									"numinlets" : 2,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 280.75, 149.0, 669.5, 470.0 ]
 								}
 
 							}
@@ -353,7 +349,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 931.25, 109.0, 108.0, 22.0 ],
+									"patching_rect" : [ 365.25, 68.0, 108.0, 22.0 ],
 									"text" : "oopsy.ctrl.smooth3"
 								}
 
@@ -367,8 +363,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 931.25, 20.0, 295.0, 22.0 ],
-									"text" : "param knob3_pitch @default 60. @min 0. @max 127."
+									"patching_rect" : [ 365.25, 25.0, 302.0, 22.0 ],
+									"text" : "param knob3_pitch @default 23. @min 60. @max 127."
 								}
 
 							}
@@ -390,7 +386,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1202.5, 721.0, 61.0, 22.0 ],
+									"patching_rect" : [ 569.5, 811.0, 61.0, 22.0 ],
 									"text" : "out 6 led4"
 								}
 
@@ -401,7 +397,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1130.5, 721.0, 61.0, 22.0 ],
+									"patching_rect" : [ 497.5, 811.0, 61.0, 22.0 ],
 									"text" : "out 5 led3"
 								}
 
@@ -412,7 +408,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1061.5, 721.0, 61.0, 22.0 ],
+									"patching_rect" : [ 428.5, 811.0, 61.0, 22.0 ],
 									"text" : "out 4 led2"
 								}
 
@@ -424,7 +420,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1061.5, 681.0, 19.0, 22.0 ],
+									"patching_rect" : [ 428.5, 771.0, 19.0, 22.0 ],
 									"text" : "0"
 								}
 
@@ -549,6 +545,20 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-22", 1 ],
+									"source" : [ "obj-20", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-59", 1 ],
+									"source" : [ "obj-20", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-23", 0 ],
 									"source" : [ "obj-22", 0 ]
 								}
@@ -556,28 +566,14 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-40", 0 ],
+									"destination" : [ "obj-9", 0 ],
 									"source" : [ "obj-3", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-22", 0 ],
-									"source" : [ "obj-38", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-59", 0 ],
-									"source" : [ "obj-38", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-9", 0 ],
+									"destination" : [ "obj-20", 1 ],
 									"source" : [ "obj-40", 0 ]
 								}
 
@@ -645,7 +641,14 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-22", 1 ],
+									"destination" : [ "obj-20", 0 ],
+									"source" : [ "obj-77", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-22", 0 ],
 									"order" : 0,
 									"source" : [ "obj-77", 0 ]
 								}
@@ -653,14 +656,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-38", 0 ],
-									"source" : [ "obj-77", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-59", 1 ],
+									"destination" : [ "obj-59", 0 ],
 									"order" : 1,
 									"source" : [ "obj-77", 0 ]
 								}
@@ -668,7 +664,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-38", 1 ],
+									"destination" : [ "obj-40", 0 ],
 									"source" : [ "obj-9", 0 ]
 								}
 
@@ -1043,6 +1039,13 @@
 			}
 , 			{
 				"name" : "swtoggle.gendsp",
+				"bootpath" : "~/Documents/TEACHING/nyu/idm/soundstudio/shelfisizer/arduino/SUMMERJAMS21",
+				"patcherrelativepath" : ".",
+				"type" : "gDSP",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "xover.gendsp",
 				"bootpath" : "~/Documents/TEACHING/nyu/idm/soundstudio/shelfisizer/arduino/SUMMERJAMS21",
 				"patcherrelativepath" : ".",
 				"type" : "gDSP",
