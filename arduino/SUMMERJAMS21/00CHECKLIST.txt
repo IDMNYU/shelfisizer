@@ -1,6 +1,7 @@
 
 EQ shit
 	Equalizers
+	• Crossover filter
 	• Wah-wah (manual, auto-wah, dynamic wah)
 	IR Modeling
 	• Talk box / formant filter
@@ -22,8 +23,8 @@ Distortion
 	• Octave Fuzz ('Octavia')
 
 Modulation
-	• Chorus - add tap switches
-	• Flanger / Vibrato - three way switch (vibrato / normal / thru-0)
+	• Chorus / Vibrato 
+	• Flanger (normal / thru-0)
 	• Phaser / Univibe - clean up
 	• Harmonizer
 	Comb array
