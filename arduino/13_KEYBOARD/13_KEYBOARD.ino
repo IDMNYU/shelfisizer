@@ -180,10 +180,10 @@ void loop() {
     // if it *was* touched and now *isnt*, alert!
     if (!(currtouched1 & _BV(i)) && (lasttouched1 & _BV(i)) ) {
       if (DEBUG) Serial.print("keyup A "); Serial.println(i);
-      if (i > 4 && !latch) // notes only
+      if (i > 4) // notes only
       {
         pcount--; // polyphony count down
-        arp[i - 5] = false;
+        if(!latch) arp[i - 5] = false;
       }
     }
 
@@ -198,9 +198,9 @@ void loop() {
     // if it *was* touched and now *isnt*, alert!
     if (!(currtouched2 & _BV(i)) && (lasttouched2 & _BV(i)) ) {
       if (DEBUG) Serial.print("keyup B "); Serial.println(i);
+      pcount--; // polyphony count down
       if (!latch)
       {
-        pcount--; // polyphony count down
         arp[i - 5 + 12] = false;
       }
     }
@@ -215,9 +215,9 @@ void loop() {
     // if it *was* touched and now *isnt*, alert!
     if (!(currtouched3 & _BV(i)) && (lasttouched3 & _BV(i)) ) {
       if (DEBUG) Serial.print("keyup C "); Serial.println(i);
+      pcount--; // polyphony count down
       if (!latch)
       {
-        pcount--; // polyphony count down
         arp[i - 5 + 24] = false;
       }
     }
@@ -235,10 +235,10 @@ void loop() {
     // if it *was* touched and now *isnt*, alert!
     if (!(currtouched4 & _BV(i)) && (lasttouched4 & _BV(i)) ) {
       if (DEBUG) Serial.print("keyup D "); Serial.println(i);
-      if (i < 6 && !latch) // notes only
+      if (i < 6) // notes only
       {
         pcount--; // polyphony count down
-        arp[i - 5 + 36] = false;
+        if(!latch) arp[i - 5 + 36] = false;
       }
     }
   }
